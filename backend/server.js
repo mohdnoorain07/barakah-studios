@@ -15,6 +15,8 @@ if (!process.env.MONGO_URI) {
 const app = express();
 
 // Middleware
+app.use(cors({ origin: '*' }));
+app.options('*', cors());
 app.use(express.json());
 
 // Debug
@@ -31,9 +33,6 @@ mongoose.connect(process.env.MONGO_URI)
     console.log(" MongoDB Error:");
     console.log(err);
 });
-
-app.use(cors());
-
 
 // Routes
 app.use("/api/contact", require("./routes/contacts"));

@@ -15,16 +15,14 @@ router.post("/", async (req, res) => {
     }
 
     // Save in MongoDB
-const existingLead = await Lead.findOne({ email });
+    const existingLead = await Lead.findOne({ email });
+    let lead = existingLead;
 
-if (existingLead) {
-  return res.status(400).json({
-    success: false,
-    message: "Email already registered"
-  });
-}
+    if (!existingLead) {
+      lead = await Lead.create({ email });
+    }
 
-const lead = await Lead.create({ email });    // Gmail Transport
+    // Gmail Transport
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
