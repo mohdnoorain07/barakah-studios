@@ -16,7 +16,6 @@ const app = express();
 
 // Middleware
 app.use(cors({ origin: '*' }));
-app.options('*', cors({ origin: '*' }));
 app.use(express.json());
 
 // Ensure even error responses include CORS headers
