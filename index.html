@@ -3,6 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Barakah Studios - Premium creative agency specializing in cinematic video editing, logo design, visual branding, and motion graphics. Transform your vision into captivating visuals.">
+<meta property="og:title" content="Barakah Studios - Creative Agency">
+<meta property="og:description" content="Cinematic video editing, logo design, visual branding. 120+ projects. Est. 2024.">
+<meta property="og:image" content="https://barakahstudios.com/og-preview.jpg">
+<meta property="og:url" content="https://barakahstudios.com">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Barakah Studios - Creative Agency">
+<meta name="twitter:description" content="Premium visual storytelling and branding. Video editing, logo design, motion graphics.">
+<meta name="twitter:image" content="https://barakahstudios.com/og-preview.jpg">
 <title>Barakah Studios Creative Agency</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -15,7 +25,7 @@
     --gold-dim: rgba(201,168,76,0.15);
     --black: #080808;
     --surface: #0f0f0f;
-    --surface2: #813d3d;
+    --surface2: #1C1C1C;
     --cream: #F0EAD6;
     --muted: #6B6560;
     --white: #fafafa;
@@ -145,7 +155,7 @@
     opacity: 0; animation: fadeUp .8s .7s ease forwards;
   }
   .hero-actions {
-    display: flex; gap: 20px; justify-content: center; align-items: center;
+    display: flex; gap: 24px; justify-content: center; align-items: center; flex-wrap: wrap;
     opacity: 0; animation: fadeUp .8s .9s ease forwards;
   }
   .btn-primary {
@@ -153,9 +163,9 @@
     background: var(--gold); color: var(--black);
     font-family: var(--font-body);
     font-size: .78rem; letter-spacing: .2em; text-transform: uppercase;
-    border: none; cursor: pointer;
+    border: none; cursor: pointer; min-height: 52px;
     position: relative; overflow: hidden;
-    transition: transform .2s;
+    transition: transform .2s; display: flex; align-items: center;
   }
   .btn-primary::before {
     content: ''; position: absolute; inset: 0;
@@ -170,17 +180,23 @@
     color: var(--cream);
     font-family: var(--font-body);
     font-size: .78rem; letter-spacing: .2em; text-transform: uppercase;
-    background: transparent; cursor: pointer;
+    background: transparent; cursor: pointer; min-height: 52px;
     transition: border-color .3s, color .3s;
-    text-decoration: none;
+    text-decoration: none; display: flex; align-items: center;
   }
   .hero-scroll {
     position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
     display: flex; flex-direction: column; align-items: center; gap: 10px;
     opacity: 0; animation: fadeUp .6s 1.3s ease forwards;
+    z-index: 10; overflow: hidden;
   }
-  .hero-scroll span {
-    font-size: .65rem; letter-spacing: .3em; text-transform: uppercase; color: var(--muted);
+  .scroll-arrow {
+    font-size: 1.2rem; color: var(--gold);
+    animation: bounceDown 2s infinite;
+  }
+  @keyframes bounceDown {
+    0%, 100% { transform: translateY(0); opacity: .6; }
+    50% { transform: translateY(8px); opacity: 1; }
   }
   .scroll-line {
     width: 1px; height: 50px; background: linear-gradient(var(--gold), transparent);
@@ -314,7 +330,8 @@
   .service-card {
     background: var(--surface2);
     padding: 48px 40px;
-    border: 1px solid transparent;
+    border: none;
+    border-top: 3px solid var(--gold);
     transition: border-color .4s, transform .4s, background .4s;
     position: relative; overflow: hidden;
     cursor: auto;
@@ -639,16 +656,29 @@
     nav { padding: 24px 32px; }
     nav.scrolled { padding: 16px 32px; }
     .about-grid { grid-template-columns: 1fr; gap: 60px; }
-    .about-visual { height: 320px; }
+    .about-visual { height: 400px; }
     .services-grid { grid-template-columns: 1fr 1fr; }
     .process-steps { grid-template-columns: 1fr 1fr; gap: 48px; }
     .process-steps::before { display: none; }
     .footer-grid { grid-template-columns: 1fr 1fr; }
   }
+  @media (max-width: 480px) {
+    .hero-actions { flex-direction: column; width: 100%; }
+    .btn-primary, .btn-outline { width: 100%; padding: 12px 24px; font-size: .7rem; }
+    .btn-primary::before { display: none; }
+    .hero-scroll { display: none; }
+  }
   @media (max-width: 768px) {
     .nav-links, .nav-cta { display: none; }
     .hamburger { display: flex; }
-    .services-grid, .portfolio-grid { grid-template-columns: 1fr; }
+    .hero-title { margin-bottom: 16px; }
+    .hero-actions { gap: 16px; }
+    .btn-primary, .btn-outline { width: auto; justify-content: center; padding: 14px 28px; }
+
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .about-visual { height: 320px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .portfolio-grid { grid-template-columns: 1fr; }
     .portfolio-item.wide { grid-column: span 1; }
     .services-header { flex-direction: column; align-items: flex-start; gap: 20px; }
     .test-card { padding: 40px 24px; }
@@ -656,6 +686,7 @@
     .footer-grid { grid-template-columns: 1fr; }
     .cta-email { flex-direction: column; }
     .cta-email input { border-right: 1px solid rgba(201,168,76,.2); border-bottom: none; }
+    .hero-scroll { display: none; }
   }
 </style>
 </head>
@@ -689,15 +720,12 @@
     </h1>
 <p class="hero-sub">Transforming bold ideas into captivating visuals from cinematic video edits to iconic brand identities that leave a lasting impression.</p>
     <div class="hero-actions">
-      <button class="btn-primary"><span> CLick to know more
-    
-      </span></button>
+      <button class="btn-primary"><span>Click to Know More</span></button>
       <a href="#services" class="btn-outline">Our Services</a>
     </div>
   </div>
   <div class="hero-scroll">
-    <span>Scroll</span>
-    <div class="scroll-line"></div>
+    <div class="scroll-arrow">↓</div>
   </div>
 </section>
 
@@ -759,10 +787,7 @@
         </div>
       </div>
       <div class="about-visual reveal reveal-delay-2">
-        <div class="about-card card-main">
-          <div class="card-icon">🎬</div>
-          <span style="font-size:1rem;color:var(--muted);">Visual storytelling at its finest</span>
-        </div>
+        <img src="https://images.unsplash.com/photo-1598520220514-85d41d1b3b38?w=600&h=500&fit=crop" alt="Creative studio workspace - cinematic dark aesthetic" style="width:100%;height:100%;object-fit:cover;border-radius:2px;">
         <div class="about-card card-float">
           <div class="f-num">★ 5.0</div>
           <div class="f-lbl">Client Rating</div>
@@ -790,7 +815,7 @@
     <div class="services-grid">
       <div class="service-card reveal">
         <div class="service-num">01</div>
-        <span class="service-icon">🎬</span>
+        <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 7l-7 5 7 5V7z"></path><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg></span>
         <h3 class="service-name">Video Editing</h3>
         <p class="service-text">Cinematic cuts, seamless transitions, and compelling narratives that captivate audiences and tell your story with impact.</p>
         <div class="service-tags">
@@ -801,7 +826,7 @@
       </div>
       <div class="service-card reveal reveal-delay-1">
         <div class="service-num">02</div>
-        <span class="service-icon">✏️</span>
+        <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M20 4l-8.5 8m0 3l8.5 8"></path></svg></span>
         <h3 class="service-name">Logo Design</h3>
         <p class="service-text">Iconic marks that define your brand. We design logos that are timeless, versatile, and deeply rooted in your brand's essence.</p>
         <div class="service-tags">
@@ -812,7 +837,7 @@
       </div>
       <div class="service-card reveal reveal-delay-2">
         <div class="service-num">03</div>
-        <span class="service-icon">🎨</span>
+        <span class="service-icon"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="2"></circle><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16z"></path><circle cx="19" cy="5" r="1.5"></circle></svg></span>
         <h3 class="service-name">Visual Branding</h3>
         <p class="service-text">Complete brand systems color palettes, typography, guidelines, and collateral built to create lasting impressions.</p>
         <div class="service-tags">
@@ -823,7 +848,7 @@
       </div>
       <div class="service-card reveal reveal-delay-1">
         <div class="service-num">04</div>
-        <span class="service-icon">📱</span>
+        <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg></span>
         <h3 class="service-name">Social Media Visuals</h3>
         <p class="service-text">Scroll-stopping graphics and content designed to elevate your social presence and drive meaningful engagement.</p>
         <div class="service-tags">
@@ -834,7 +859,7 @@
       </div>
       <div class="service-card reveal reveal-delay-2">
         <div class="service-num">05</div>
-        <span class="service-icon">✨</span>
+        <span class="service-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg></span>
         <h3 class="service-name">Motion Graphics</h3>
         <p class="service-text">Dynamic animated visuals that bring your content to life from logo animations to full explainer videos.</p>
         <div class="service-tags">
@@ -845,7 +870,7 @@
       </div>
       <div class="service-card reveal reveal-delay-3">
         <div class="service-num">06</div>
-        <span class="service-icon">🖼️</span>
+        <span class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg></span>
         <h3 class="service-name">Creative Direction</h3>
         <p class="service-text">Strategic creative oversight to align your visual language with your brand goals and market positioning.</p>
         <div class="service-tags">
@@ -1047,17 +1072,16 @@
       <div>
         <div class="footer-col-title">Company</div>
         <ul class="footer-links">
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Our Work</a></li>
-          <li><a href="#">Process</a></li>
-          <li><a href="#">Careers</a></li>
-          <li><a href="#">Blog</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#portfolio">Our Work</a></li>
+          <li><a href="#cta">Contact</a></li>
         </ul>
       </div>
       <div>
         <div class="footer-col-title">Contact</div>
         <ul class="footer-links">
-          <li><a href="mailto:studywithnoorain@gmail.com">studywithnoorain@gmail.com</a></li>
+          <li><a href="mailto:studywithnoorain@gmail.com">studywithnoo
+            rain@gmail.com</a></li>
           <li><a href="tel:+919876543210">+91 98765 43210</a></li>
           <li><span>Greater Noida, India</span></li>
           <li><a href="#cta">Request a Quote</a></li>
