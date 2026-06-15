@@ -1,0 +1,4 @@
+/api/*  https://barakah-studios.up.railway.app/api/:splat  200
+
+# Optional: uncomment to forward all requests to backend
+# /*  https://barakah-studios.up.railway.app/:splat  200
