@@ -7,6 +7,7 @@ router.post("/", async (req, res) => {
   try {
     const { email } = req.body;
 
+    // Validate email
     if (!email) {
       return res.status(400).json({
         success: false,
@@ -14,15 +15,14 @@ router.post("/", async (req, res) => {
       });
     }
 
-    // Save in MongoDB
-    const existingLead = await Lead.findOne({ email });
-    let lead = existingLead;
+    // Check duplicate
+    let lead = await Lead.findOne({ email });
 
-    if (!existingLead) {
+    if (!lead) {
       lead = await Lead.create({ email });
     }
 
-    // Gmail Transport
+    // Create transporter
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -31,37 +31,39 @@ router.post("/", async (req, res) => {
       }
     });
 
-    // Send Email
- await transporter.sendMail({
-  from: process.env.EMAIL_USER,
-  to: process.env.EMAIL_USER,
-  subject: "🚀 New Barakah Studios Lead",
-  html: `
-    <h2>New Visitor Lead</h2>
+    // Try sending email
+    try {
+      await transporter.sendMail({
+        from: process.env.EMAIL_USER,
+        to: process.env.EMAIL_USER,
+        subject: "🚀 New Barakah Studios Lead",
+        html: `
+          <h2>New Visitor Lead</h2>
 
-    <p>
-      <strong>Email:</strong>
-      ${lead.email}
-    </p>
+          <p><strong>Email:</strong> ${lead.email}</p>
 
-    <p>
-      <strong>Submitted At:</strong>
-      ${new Date(lead.createdAt).toLocaleString("en-IN")}
-    </p>
-  `
-});
+          <p><strong>Submitted At:</strong> ${new Date(
+            lead.createdAt
+          ).toLocaleString("en-IN")}</p>
+        `
+      });
 
-    res.json({
+      console.log("✅ Email sent successfully");
+
+    } catch (mailError) {
+      console.error("❌ Email Error:", mailError.message);
+    }
+
+    // Always return success because lead is already saved
+    return res.status(200).json({
       success: true,
-      message: "Lead Saved & Email Sent"
+      message: "Lead saved successfully"
     });
 
   } catch (error) {
-    console.error(error);
+    console.error("❌ Server Error:", error);
 
-
-  
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: "Server Error"
     });

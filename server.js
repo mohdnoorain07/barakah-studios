@@ -55,12 +55,12 @@ if (hasEmailConfig) {
 
 // Routes
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'barakah-studios.html'));
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Contact form endpoint
 app.post('/api/contact', async (req, res) => {
-  const { email, name = 'Guest', subject = 'New Contact Form Submission' } = req.body;
+  const { email, name = 'Guest', company = '', phone = '', message = '', subject = 'New Contact Form Submission' } = req.body;
 
   // Validate email
   if (!email || !email.includes('@')) {
@@ -79,12 +79,14 @@ app.post('/api/contact', async (req, res) => {
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: process.env.ADMIN_EMAIL || process.env.EMAIL_USER,
-      subject: `New Contact: ${subject}`,
+      subject: `🚀 New Contact: ${subject}`,
       html: `
         <h2>New Contact Submission from Barakah Studios</h2>
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Message:</strong> ${subject}</p>
+        ${company ? `<p><strong>Company/Brand:</strong> ${company}</p>` : ''}
+        ${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ''}
+        ${message ? `<p><strong>Message/Goals:</strong> ${message}</p>` : ''}
         <hr>
         <p>Reply to them at: ${email}</p>
       `
@@ -98,10 +100,10 @@ app.post('/api/contact', async (req, res) => {
       html: `
         <h2>Thank You!</h2>
         <p>Hi ${name},</p>
-        <p>We've received your email and will get back to you within 24 hours.</p>
-        <p>Our team at Barakah Studios is excited to discuss your project!</p>
-        <hr>
-        <p style="color: #999; font-size: 12px;">Best regards,<br>Barakah Studios Team</p>
+        <p>We've received your request and will get back to you within 24 hours. Thank you for contacting Barakah Studios.</p>
+        <p>Our team is excited to discuss your project and create something amazing together!</p>
+        <br>
+        <p style="font-size: 12px; color: #999;">Best regards,<br><strong>Barakah Studios Team</strong></p>
       `
     });
 
